@@ -28,10 +28,9 @@
 
                         <div class="address-text">
                             <ul>
-                                <li>地址: 泸州职业技术学院</li>
-                                <li>手机: (012) 800 456 789</li>
-                                <li>传真: (012) 800 456 789</li>
-                                <li>电子邮箱: 1191741799@qq.com</li>
+                                <li>地址: 山西省太原市尖草坪区学院路3号中北大学</li>
+                                <li>手机: 000 0000 0000</li>
+                                <li>电子邮箱: wowgz7013@gmail.com</li>
                             </ul>
                         </div>
 
@@ -124,7 +123,7 @@
                     <!--=======  footer copyright text  =======-->
 
                     <div class="footer-copyright-text">
-                        <p>Copyright &copy; 2018 <a href="#">白宇宏</a></p>
+                        <p>Copyright &copy; 2019 <a href="#">郭朕 江涛 陈文博</a></p>
                     </div>
 
                     <!--=======  End of footer copyright text  =======-->

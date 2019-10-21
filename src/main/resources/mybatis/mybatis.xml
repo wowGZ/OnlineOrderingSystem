@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="com.byh.biyesheji.pojo"/>
+        <package name="com.biyesheji.pojo"/>
     </typeAliases>
 </configuration>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.byh.biyesheji.dao.RolePermissionMapper" >
-  <resultMap id="BaseResultMap" type="com.byh.biyesheji.pojo.RolePermission" >
+<mapper namespace="com.biyesheji.dao.RolePermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.biyesheji.pojo.RolePermission" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="rid" property="rid" jdbcType="BIGINT" />
     <result column="pid" property="pid" jdbcType="BIGINT" />
@@ -38,7 +38,7 @@
   <sql id="Base_Column_List" >
     id, rid, pid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byh.biyesheji.pojo.RolePermissionExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biyesheji.pojo.RolePermissionExample" >
     select
     <if test="distinct" >
       distinct
@@ -63,11 +63,11 @@
     delete from role_permission
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.byh.biyesheji.pojo.RolePermission" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com.biyesheji.pojo.RolePermission" useGeneratedKeys="true" keyProperty="id" >
     insert into role_permission (rid, pid)
     values (#{rid,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.byh.biyesheji.pojo.RolePermission" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.biyesheji.pojo.RolePermission" useGeneratedKeys="true" keyProperty="id" >
     insert into role_permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="rid != null" >
@@ -86,7 +86,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.byh.biyesheji.pojo.RolePermission" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.biyesheji.pojo.RolePermission" >
     update role_permission
     <set >
       <if test="rid != null" >
@@ -98,7 +98,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.byh.biyesheji.pojo.RolePermission" >
+  <update id="updateByPrimaryKey" parameterType="com.biyesheji.pojo.RolePermission" >
     update role_permission
     set rid = #{rid,jdbcType=BIGINT},
       pid = #{pid,jdbcType=BIGINT}

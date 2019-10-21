@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.byh.biyesheji.dao.ReviewMapper" >
-  <resultMap id="BaseResultMap" type="com.byh.biyesheji.pojo.Review" >
+<mapper namespace="com.biyesheji.dao.ReviewMapper" >
+  <resultMap id="BaseResultMap" type="com.biyesheji.pojo.Review" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="cstid" property="cstid" jdbcType="INTEGER" />
@@ -40,7 +40,7 @@
   <sql id="Base_Column_List" >
     id, content, cstid, pid, createtime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byh.biyesheji.pojo.ReviewExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biyesheji.pojo.ReviewExample" >
     select
     <if test="distinct" >
       distinct
@@ -65,13 +65,13 @@
     delete from review
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.byh.biyesheji.pojo.Review" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com.biyesheji.pojo.Review" useGeneratedKeys="true" keyProperty="id" >
     insert into review (content, cstid, pid, 
       createtime)
     values (#{content,jdbcType=VARCHAR}, #{cstid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
       #{createtime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.byh.biyesheji.pojo.Review" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.biyesheji.pojo.Review" useGeneratedKeys="true" keyProperty="id" >
     insert into review
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="content != null" >
@@ -102,7 +102,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.byh.biyesheji.pojo.Review" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.biyesheji.pojo.Review" >
     update review
     <set >
       <if test="content != null" >
@@ -120,7 +120,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.byh.biyesheji.pojo.Review" >
+  <update id="updateByPrimaryKey" parameterType="com.biyesheji.pojo.Review" >
     update review
     set content = #{content,jdbcType=VARCHAR},
       cstid = #{cstid,jdbcType=INTEGER},

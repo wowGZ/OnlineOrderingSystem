@@ -24,10 +24,10 @@
         <!--生成pojo类存放位置
           targetPackage表明要生成的文件要存放的文件夹
           targetProject表明具体路径
-          比如我这里连起来就是：D:\spring\shiroTest\src\main\java下的com.byh.shiro.pojo文件夹保存生成的pojo文件
+          比如我这里连起来就是：D:\spring\shiroTest\src\main\java下的com.hiro.pojo文件夹保存生成的pojo文件
           下面生成xml和mapper同理
         -->
-        <javaModelGenerator targetPackage="com.byh.biyesheji.pojo" targetProject="E:\work\coding\java\IDEAWorkSpace\ordering_system\ordering_system_ssm\src\main\java">
+        <javaModelGenerator targetPackage="com.biyesheji.pojo" targetProject="E:\work\coding\java\IDEAWorkSpace\ordering_system\ordering_system_ssm\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -36,7 +36,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成mapper类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.byh.biyesheji.dao" targetProject="E:\work\coding\java\IDEAWorkSpace\ordering_system\ordering_system_ssm\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.biyesheji.dao" targetProject="E:\work\coding\java\IDEAWorkSpace\ordering_system\ordering_system_ssm\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 

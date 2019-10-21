@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.byh.biyesheji.dao.UserRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.byh.biyesheji.pojo.UserRole" >
+<mapper namespace="com.biyesheji.dao.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.biyesheji.pojo.UserRole" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="uid" property="uid" jdbcType="BIGINT" />
     <result column="rid" property="rid" jdbcType="BIGINT" />
@@ -38,7 +38,7 @@
   <sql id="Base_Column_List" >
     id, uid, rid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byh.biyesheji.pojo.UserRoleExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biyesheji.pojo.UserRoleExample" >
     select
     <if test="distinct" >
       distinct
@@ -63,11 +63,11 @@
     delete from user_role
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.byh.biyesheji.pojo.UserRole" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com.biyesheji.pojo.UserRole" useGeneratedKeys="true" keyProperty="id" >
     insert into user_role (uid, rid)
     values (#{uid,jdbcType=BIGINT}, #{rid,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.byh.biyesheji.pojo.UserRole" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.biyesheji.pojo.UserRole" useGeneratedKeys="true" keyProperty="id" >
     insert into user_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="uid != null" >
@@ -86,7 +86,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.byh.biyesheji.pojo.UserRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.biyesheji.pojo.UserRole" >
     update user_role
     <set >
       <if test="uid != null" >
@@ -98,7 +98,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.byh.biyesheji.pojo.UserRole" >
+  <update id="updateByPrimaryKey" parameterType="com.biyesheji.pojo.UserRole" >
     update user_role
     set uid = #{uid,jdbcType=BIGINT},
       rid = #{rid,jdbcType=BIGINT}

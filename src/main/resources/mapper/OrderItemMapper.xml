@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.byh.biyesheji.dao.OrderItemMapper" >
-  <resultMap id="BaseResultMap" type="com.byh.biyesheji.pojo.OrderItem" >
+<mapper namespace="com.biyesheji.dao.OrderItemMapper" >
+  <resultMap id="BaseResultMap" type="com.biyesheji.pojo.OrderItem" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="pid" property="pid" jdbcType="INTEGER" />
     <result column="oid" property="oid" jdbcType="INTEGER" />
@@ -40,7 +40,7 @@
   <sql id="Base_Column_List" >
     id, pid, oid, cstid, number
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byh.biyesheji.pojo.OrderItemExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biyesheji.pojo.OrderItemExample" >
     select
     <if test="distinct" >
       distinct
@@ -65,13 +65,13 @@
     delete from orderitem
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.byh.biyesheji.pojo.OrderItem" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com.biyesheji.pojo.OrderItem" useGeneratedKeys="true" keyProperty="id" >
     insert into orderitem (pid, oid, cstid, 
       number)
     values (#{pid,jdbcType=INTEGER}, #{oid,jdbcType=INTEGER}, #{cstid,jdbcType=INTEGER}, 
       #{number,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.byh.biyesheji.pojo.OrderItem" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.biyesheji.pojo.OrderItem" useGeneratedKeys="true" keyProperty="id" >
     insert into orderitem
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="pid != null" >
@@ -102,7 +102,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.byh.biyesheji.pojo.OrderItem" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.biyesheji.pojo.OrderItem" >
     update orderitem
     <set >
       <if test="pid != null" >
@@ -120,7 +120,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.byh.biyesheji.pojo.OrderItem" >
+  <update id="updateByPrimaryKey" parameterType="com.biyesheji.pojo.OrderItem" >
     update orderitem
     set pid = #{pid,jdbcType=INTEGER},
       oid = #{oid,jdbcType=INTEGER},

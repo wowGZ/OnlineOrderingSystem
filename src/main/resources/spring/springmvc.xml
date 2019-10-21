@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-    <context:component-scan base-package="com.byh.biyesheji.controller"/>
+    <context:component-scan base-package="com.biyesheji.controller"/>
 
     <mvc:annotation-driven />
 
@@ -27,7 +27,7 @@
     <!--<bean id="exceptionHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
     </bean>-->
 
-    <bean class="com.byh.biyesheji.exception.DefaultExceptionHandler"/>
+    <bean class="com.biyesheji.exception.DefaultExceptionHandler"/>
 
     <!--开放对上传功能的支持-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -38,7 +38,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/fore/*"/>
-            <bean class="com.byh.biyesheji.Interceptor.LoginInterceptor"/>
+            <bean class="com.biyesheji.Interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

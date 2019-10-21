@@ -8,7 +8,7 @@
     http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- url过滤器 -->
-    <bean id="urlPathMatchingFilter" class="com.byh.biyesheji.filter.URLPathMatchingFilter"/>
+    <bean id="urlPathMatchingFilter" class="com.biyesheji.filter.URLPathMatchingFilter"/>
 
     <!-- 配置shiro的过滤器工厂类，id- shiroFilter要和在web.xml中配置的过滤器一致 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -29,6 +29,7 @@
         <property name="filterChainDefinitions">
             <value>
                 <!-- anon表示此地址不需要任何权限即可访问 -->
+                /android/**=anon
                 /fore/**=anon
                 /islogout=logout
                 /login=anon
@@ -98,7 +99,7 @@
         <property name="sessionManager" ref="sessionManager" />
     </bean>
     <!-- realm -->
-    <bean id="admindatabaseRealm" class="com.byh.biyesheji.realm.AdminDatabaseRealm">
+    <bean id="admindatabaseRealm" class="com.biyesheji.realm.AdminDatabaseRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
     <!-- 密码匹配器 -->

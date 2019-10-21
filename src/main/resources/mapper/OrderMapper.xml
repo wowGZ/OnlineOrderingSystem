@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.byh.biyesheji.dao.OrderMapper" >
-  <resultMap id="BaseResultMap" type="com.byh.biyesheji.pojo.Order" >
+<mapper namespace="com.biyesheji.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.biyesheji.pojo.Order" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
@@ -40,7 +40,7 @@
   <sql id="Base_Column_List" >
     id, code, address, status, cstid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byh.biyesheji.pojo.OrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biyesheji.pojo.OrderExample" >
     select
     <if test="distinct" >
       distinct
@@ -65,13 +65,13 @@
     delete from order_
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.byh.biyesheji.pojo.Order" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com.biyesheji.pojo.Order" useGeneratedKeys="true" keyProperty="id" >
     insert into order_ (code, address, status, 
       cstid)
     values (#{code,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{cstid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.byh.biyesheji.pojo.Order" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.biyesheji.pojo.Order" useGeneratedKeys="true" keyProperty="id" >
     insert into order_
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="code != null" >
@@ -102,7 +102,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.byh.biyesheji.pojo.Order" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.biyesheji.pojo.Order" >
     update order_
     <set >
       <if test="code != null" >
@@ -120,7 +120,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.byh.biyesheji.pojo.Order" >
+  <update id="updateByPrimaryKey" parameterType="com.biyesheji.pojo.Order" >
     update order_
     set code = #{code,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},

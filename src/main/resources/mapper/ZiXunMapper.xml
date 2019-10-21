@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.byh.biyesheji.dao.ZiXunMapper" >
+<mapper namespace="com.biyesheji.dao.ZiXunMapper" >
 
   <update id="shenhe">
     update zixun set status=1 where id = #{zid}
   </update>
 
-  <resultMap id="BaseResultMap" type="com.byh.biyesheji.pojo.ZiXun" >
+  <resultMap id="BaseResultMap" type="com.biyesheji.pojo.ZiXun" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="cstid" property="cstid" jdbcType="INTEGER" />
@@ -45,7 +45,7 @@
   <sql id="Base_Column_List" >
     id, content, cstid, status, fabudate
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byh.biyesheji.pojo.ZiXunExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.biyesheji.pojo.ZiXunExample" >
     select
     <if test="distinct" >
       distinct
@@ -70,13 +70,13 @@
     delete from zixun
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.byh.biyesheji.pojo.ZiXun" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com.biyesheji.pojo.ZiXun" useGeneratedKeys="true" keyProperty="id" >
     insert into zixun (content, cstid, status, 
       fabudate)
     values (#{content,jdbcType=VARCHAR}, #{cstid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{fabudate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.byh.biyesheji.pojo.ZiXun" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.biyesheji.pojo.ZiXun" useGeneratedKeys="true" keyProperty="id" >
     insert into zixun
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="content != null" >
@@ -107,7 +107,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.byh.biyesheji.pojo.ZiXun" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.biyesheji.pojo.ZiXun" >
     update zixun
     <set >
       <if test="content != null" >
@@ -125,7 +125,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.byh.biyesheji.pojo.ZiXun" >
+  <update id="updateByPrimaryKey" parameterType="com.biyesheji.pojo.ZiXun" >
     update zixun
     set content = #{content,jdbcType=VARCHAR},
       cstid = #{cstid,jdbcType=INTEGER},

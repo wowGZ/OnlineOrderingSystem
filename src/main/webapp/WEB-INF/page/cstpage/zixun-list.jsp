@@ -26,7 +26,7 @@
             <table class="table table-border table-bordered table-bg" id="mytable">
                 <thead>
                 <tr>
-                    <th scope="col" colspan="10">台后资讯列表</th>
+                    <th scope="col" colspan="10">后台资讯列表</th>
                 </tr>
                 <tr class="text-c">
                     <th width="">ID</th>

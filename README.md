@@ -1,4 +1,4 @@
-# ordering_system
+# OnlineOrderingSystem
 网上订餐系统，基于javaweb+SSM+maven实现
 提供Android相关接口，以及简单的安卓端app
 

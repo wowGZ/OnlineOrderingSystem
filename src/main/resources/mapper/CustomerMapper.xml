@@ -148,4 +148,16 @@
             status   = #{status,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <!--<update id="updateByName" parameterType="com.biyesheji.pojo.Customer">-->
+        <!--update customer-->
+        <!--set password = #{password,jdbcType=VARCHAR}-->
+        <!--where name = #{name,jdbcType=VARCHAR}-->
+    <!--</update>-->
+
+    <!--<select id="selectByName" parameterType="com.biyesheji.pojo.Customer" resultMap="com.biyesheji.pojo.Customer">-->
+        <!--select *-->
+        <!--from custmer-->
+        <!--where name=#{name,jdbcType=VARCHAR}-->
+    <!--</select>-->
 </mapper>

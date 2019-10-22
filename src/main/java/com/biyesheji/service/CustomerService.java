@@ -2,6 +2,8 @@ package com.biyesheji.service;
 
 import com.biyesheji.pojo.Customer;
 
+import java.util.List;
+
 public interface CustomerService extends CrudService<Customer>{
 
     /**
@@ -19,6 +21,10 @@ public interface CustomerService extends CrudService<Customer>{
 
 
     public void update(Customer customer);
+
+//    public void updateByName(Customer customer);
+//
+//    public Customer selectByName(Customer customer);
 
 
 

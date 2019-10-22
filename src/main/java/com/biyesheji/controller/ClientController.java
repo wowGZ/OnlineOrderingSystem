@@ -1,7 +1,10 @@
 package com.biyesheji.controller;
 
 import com.biyesheji.pojo.Customer;
+import com.biyesheji.pojo.Order;
 import com.biyesheji.service.CustomerService;
+import com.biyesheji.service.OrderItemService;
+import com.biyesheji.service.OrderService;
 import com.biyesheji.service.ProductService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Created by WowGz
@@ -30,11 +34,15 @@ public class ClientController {
     private CustomerService customerService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderItemService orderItemService;
 
     @RequestMapping("/login")
-    public void loginFromClient(HttpServletRequest request, HttpServletResponse response, Model model,
-                                  @RequestParam("name") String name,
-                                  @RequestParam("password") String password){
+    public void loginFromClient(HttpServletRequest request, HttpServletResponse response,
+                                @RequestParam("name") String name,
+                                @RequestParam("password") String password) {
         Gson gson = new Gson();
 
         Customer customer = new Customer();
@@ -67,11 +75,11 @@ public class ClientController {
     }
 
     @RequestMapping("/signIn")
-    public void signIn(HttpServletRequest request, HttpServletResponse response, Model model,
+    public void signIn(HttpServletRequest request, HttpServletResponse response,
                        @RequestParam("name") String name,
                        @RequestParam("password") String password,
                        @RequestParam("address") String address,
-                       @RequestParam("phone")String phone){
+                       @RequestParam("phone") String phone) {
         Customer customer = new Customer();
         customer.setName(name);
         customer.setPassword(password);
@@ -89,32 +97,61 @@ public class ClientController {
     }
 
     @RequestMapping("/forgetPassword")
-    public void forgetPassword(HttpServletRequest request, HttpServletResponse response, Model model,
+    public void forgetPassword(HttpServletRequest request, HttpServletResponse response,
                                @RequestParam("name") String name,
-                               @RequestParam("password") String password){
-        Customer customer = new Customer();
-        customer.setName(name);
-
-        Customer resultCustomer = customerService.foreLogin(customer);
-        resultCustomer.setPassword(password);
-
-        customerService.update(resultCustomer);
-
+                               @RequestParam("password") String password) {
         response.setContentType("application/json");
         PrintWriter out = null;
         JsonObject json = new JsonObject();
 
-        successOrFailure(response, out, json);
+        try {
+            out = response.getWriter();
+
+            List<Customer> list = customerService.list();
+
+            int flag = 0;
+            for (Customer cst :
+                    list) {
+                if (cst.getName().equals(name)){
+
+                    System.out.println(cst.toString());
+                    System.out.println("------------------------------------------------------");
+
+                    cst.setPassword(password);
+
+                    System.out.println(cst.toString());
+                    System.out.println("------------------------------------------------------");
+
+                    customerService.update(cst);
+                    flag++;
+                    break;
+                }
+            }
+            if (flag >= 1){
+                json.addProperty("status", 1);
+            } else {
+                json.addProperty("status", -1);
+            }
+            out.write(json.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            json.addProperty("status", -2);//后台IO异常
+            out.write(json.toString());
+        } finally {
+            out.flush();
+            out.close();
+        }
+
 
     }
 
     @RequestMapping("/updatePersonalInfo")
-    public void updatePersonalInfo(HttpServletRequest request, HttpServletResponse response, Model model,
+    public void updatePersonalInfo(HttpServletRequest request, HttpServletResponse response,
                                    @RequestParam("id") Integer id,
                                    @RequestParam("name") String name,
                                    @RequestParam("password") String password,
                                    @RequestParam("address") String address,
-                                   @RequestParam("phone")String phone){
+                                   @RequestParam("phone") String phone) {
         Customer customer = new Customer(id, name, password, address, phone, Integer.parseInt("0"));
 
         customerService.update(customer);
@@ -127,8 +164,42 @@ public class ClientController {
     }
 
 
+    @RequestMapping("/showCustomerAllOrder")
+    public void showCustomerAllOrder(HttpServletRequest request, HttpServletResponse response,
+                                     @RequestParam("id") Integer id){
+        Gson gson = new Gson();
+
+        response.setContentType("application/json");
+        PrintWriter out = null;
+        JsonObject json = new JsonObject();
+
+        try {
+            out = response.getWriter();
+
+            Customer customer = customerService.get(id);
+            List<Order> list = orderService.list(customer.getId());
+            if (list.size() > 0) {
+                orderItemService.fill(list);
+                json.addProperty("status", 1);//成功
+                json.addProperty("orderList", gson.toJson(list));//返回相关数据
+            } else if (list.size() == 0) {
+                json.addProperty("status", -1);//为查询到相关数据
+            } else {
+                json.addProperty("status", -2);
+            }
+            out.write(json.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            json.addProperty("status", -2);
+            out.write(json.toString());
+        } finally {
+            out.flush();
+            out.close();
+        }
+    }
+
     @RequestMapping("/showAllProduct")
-    public void showAllProduct(HttpServletResponse response){
+    public void showAllProduct(HttpServletResponse response) {
         Gson gson = new Gson();
 
         response.setContentType("application/json");
@@ -151,6 +222,7 @@ public class ClientController {
             out.close();
         }
     }
+
     private void successOrFailure(HttpServletResponse response, PrintWriter out, JsonObject json) {
         try {
             out = response.getWriter();

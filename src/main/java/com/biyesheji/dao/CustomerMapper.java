@@ -15,4 +15,8 @@ public interface CustomerMapper extends CrudDao<Customer>{
      */
     void enableStatus(int id);
 
+//    void updateByName(Customer customer);
+//
+//    Customer selectByName(Customer customer);
+
 }

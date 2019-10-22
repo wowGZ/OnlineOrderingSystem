@@ -33,6 +33,17 @@ public class CustomerServiceImpl implements CustomerService {
     public void update(Customer customer){
         customerMapper.updateByPrimaryKey(customer);
     }
+
+//    @Override
+//    public void updateByName(Customer customer) {
+//        customerMapper.updateByName(customer);
+//    }
+//
+//    @Override
+//    public Customer selectByName(Customer customer) {
+//        return customerMapper.selectByName(customer);
+//    }
+
     @Override
     public Customer get(int cstid) {
         return customerMapper.selectByPrimaryKey(cstid);

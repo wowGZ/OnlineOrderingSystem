@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="header-top-text text-center text-lg-left mb-0 mb-md-15 mb-sm-15">
-                        <p><i class="icon ion-md-alarm"></i> 下单后，15分钟内送达,投诉电话  <span class="support-no">: (012) 800 456 789</span></p>
+                        <p><i class="icon ion-md-alarm"></i> 下单后，15分钟内送达,投诉电话  <span class="support-no">: 000 0000 0000</span></p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-6">

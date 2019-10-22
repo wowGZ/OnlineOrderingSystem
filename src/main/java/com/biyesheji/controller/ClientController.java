@@ -2,15 +2,18 @@ package com.biyesheji.controller;
 
 import com.biyesheji.pojo.Customer;
 import com.biyesheji.pojo.Order;
+import com.biyesheji.pojo.OrderItem;
 import com.biyesheji.service.CustomerService;
 import com.biyesheji.service.OrderItemService;
 import com.biyesheji.service.OrderService;
 import com.biyesheji.service.ProductService;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,7 +46,7 @@ public class ClientController {
     private OrderItemService orderItemService;
 
     @RequestMapping("/login")
-    public void loginFromClient(HttpServletRequest request, HttpServletResponse response,
+    public void loginFromClient(HttpServletResponse response,
                                 @RequestParam("name") String name,
                                 @RequestParam("password") String password) {
         Gson gson = new Gson();
@@ -75,7 +81,7 @@ public class ClientController {
     }
 
     @RequestMapping("/signIn")
-    public void signIn(HttpServletRequest request, HttpServletResponse response,
+    public void signIn(HttpServletResponse response,
                        @RequestParam("name") String name,
                        @RequestParam("password") String password,
                        @RequestParam("address") String address,
@@ -90,14 +96,13 @@ public class ClientController {
         customerService.save(customer);
 
         response.setContentType("application/json");
-        PrintWriter out = null;
         JsonObject json = new JsonObject();
 
-        successOrFailure(response, out, json);
+        successOrFailure(response, json);
     }
 
     @RequestMapping("/forgetPassword")
-    public void forgetPassword(HttpServletRequest request, HttpServletResponse response,
+    public void forgetPassword(HttpServletResponse response,
                                @RequestParam("name") String name,
                                @RequestParam("password") String password) {
         response.setContentType("application/json");
@@ -146,7 +151,7 @@ public class ClientController {
     }
 
     @RequestMapping("/updatePersonalInfo")
-    public void updatePersonalInfo(HttpServletRequest request, HttpServletResponse response,
+    public void updatePersonalInfo(HttpServletResponse response,
                                    @RequestParam("id") Integer id,
                                    @RequestParam("name") String name,
                                    @RequestParam("password") String password,
@@ -157,15 +162,14 @@ public class ClientController {
         customerService.update(customer);
 
         response.setContentType("application/json");
-        PrintWriter out = null;
         JsonObject json = new JsonObject();
 
-        successOrFailure(response, out, json);
+        successOrFailure(response,json);
     }
 
 
     @RequestMapping("/showCustomerAllOrder")
-    public void showCustomerAllOrder(HttpServletRequest request, HttpServletResponse response,
+    public void showCustomerAllOrder(HttpServletResponse response,
                                      @RequestParam("id") Integer id){
         Gson gson = new Gson();
 
@@ -197,7 +201,7 @@ public class ClientController {
             out.close();
         }
     }
-
+    
     @RequestMapping("/showAllProduct")
     public void showAllProduct(HttpServletResponse response) {
         Gson gson = new Gson();
@@ -223,7 +227,42 @@ public class ClientController {
         }
     }
 
-    private void successOrFailure(HttpServletResponse response, PrintWriter out, JsonObject json) {
+    @RequestMapping("/submitOrder")
+    public void submitOrder(HttpServletResponse response,
+                            @RequestParam("id") String productId,
+                            @RequestParam("number") String productNumber,
+                            @RequestParam("customerId") Integer customerId,
+                            @RequestParam("address")String address){
+        String[] productIds = productId.split(",");
+        String[] productNumbers = productNumber.split(",");
+
+        List<OrderItem> orderItems = new ArrayList<>();
+        for (int i = 0; i < productIds.length; i++) {
+            OrderItem oi = new OrderItem();
+            oi.setCstid(customerId);
+            oi.setNumber(Integer.parseInt(productNumbers[i]));
+            oi.setPid(Integer.parseInt(productIds[i]));
+            orderItemService.save(oi);
+            orderItems.add(oi);
+        }
+
+        Order order = new Order();
+        String orderCode = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);order.setCode(orderCode);
+        order.setCode(orderCode);
+        order.setAddress(address);
+        order.setCstid(customerId);
+        order.setStatus(0);
+        orderService.add(order, orderItems);
+
+        response.setContentType("application/json");
+
+        JsonObject json = new JsonObject();
+
+        successOrFailure(response,json);
+    }
+
+    private void successOrFailure(HttpServletResponse response,JsonObject json) {
+        PrintWriter out = null;
         try {
             out = response.getWriter();
             json.addProperty("status", 1);

@@ -54,10 +54,10 @@ public class ClientController {
         Customer customer = new Customer();
         customer.setName(name);
         customer.setPassword(password);
-
         System.out.println(customer.toString());
 
-        response.setContentType("application/json");
+        response.setContentType("application/json;charset=UTF-8");
+
         PrintWriter out = null;
         JsonObject json = new JsonObject();
         try {
@@ -95,7 +95,6 @@ public class ClientController {
 
         customerService.save(customer);
 
-        response.setContentType("application/json");
         JsonObject json = new JsonObject();
 
         successOrFailure(response, json);
@@ -105,7 +104,8 @@ public class ClientController {
     public void forgetPassword(HttpServletResponse response,
                                @RequestParam("name") String name,
                                @RequestParam("password") String password) {
-        response.setContentType("application/json");
+
+        response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = null;
         JsonObject json = new JsonObject();
 
@@ -161,7 +161,6 @@ public class ClientController {
 
         customerService.update(customer);
 
-        response.setContentType("application/json");
         JsonObject json = new JsonObject();
 
         successOrFailure(response,json);
@@ -173,7 +172,7 @@ public class ClientController {
                                      @RequestParam("id") Integer id){
         Gson gson = new Gson();
 
-        response.setContentType("application/json");
+        response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = null;
         JsonObject json = new JsonObject();
 
@@ -206,21 +205,17 @@ public class ClientController {
     public void showAllProduct(HttpServletResponse response) {
         Gson gson = new Gson();
 
-        response.setContentType("application/json");
+        response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = null;
         JsonObject json = new JsonObject();
 
         try {
             out = response.getWriter();
-            json.addProperty("allProduct", gson.toJson(productService.list()));
-
+//            json.addProperty("allProduct", gson.toJson(productService.list()));
             System.out.println(gson.toJson(productService.list()));
-
-            out.write(json.toString());
+            out.write(gson.toJson(productService.list()));
         } catch (IOException e) {
             e.printStackTrace();
-            json.addProperty("status", -2);
-            out.write(json.toString());
         } finally {
             out.flush();
             out.close();
@@ -254,8 +249,6 @@ public class ClientController {
         order.setStatus(0);
         orderService.add(order, orderItems);
 
-        response.setContentType("application/json");
-
         JsonObject json = new JsonObject();
 
         successOrFailure(response,json);
@@ -263,6 +256,7 @@ public class ClientController {
 
     private void successOrFailure(HttpServletResponse response,JsonObject json) {
         PrintWriter out = null;
+        response.setContentType("application/json;charset=UTF-8");
         try {
             out = response.getWriter();
             json.addProperty("status", 1);

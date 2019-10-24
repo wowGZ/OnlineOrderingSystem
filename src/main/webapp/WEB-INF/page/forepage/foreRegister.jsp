@@ -53,20 +53,20 @@
 
                         <div class="row">
                             <div class="col-md-6 col-12 mb-20">
-                                <label>姓名</label>
+                                <label>用户名：</label>
                                 <input class="mb-0" type="text" name="name" id="name" placeholder="Name">
                             </div>
                             <div class="col-md-6 col-12 mb-20">
-                                <label>pwd</label>
-                                <input class="mb-0" type="text" name="password" id="password" placeholder="">
+                                <label>密码：</label>
+                                <input class="mb-0" type="text" name="password" id="password" placeholder="Password">
                             </div>
                             <div class="col-md-12 mb-20">
                                 <label>地址:</label>
-                                <input class="mb-0" type="text" name="address" id="address" placeholder="Email Address">
+                                <input class="mb-0" type="text" name="address" id="address" placeholder="Address">
                             </div>
                             <div class="col-md-6 mb-20">
                                 <label>手机:</label>
-                                <input class="mb-0" type="password"  name="phone" id="phone" placeholder="Password">
+                                <input class="mb-0" type="text"  name="phone" id="phone" placeholder="Phone Number">
                             </div>
 
                             <div class="col-12">
@@ -87,11 +87,18 @@
     $(function () {
         //验证不能为空
         $("form.loginForm").submit(function(){
-            if(0==$("#name").val().length||0==$("#password").val().length){
-                alert("账号不能为空");
+            if(0==$("#name").val().length||0==$("#password").val().length||0==$("#address").val().length||0==$("#phone").val().length){
+                alert("信息不能为空");
                 return false;
+            } else if (11!=$("#phone").val().length) {
+                alert("手机号长度不正确");
+                return false;
+            }else if ($("#password").val().length < 6) {
+                alert("密码长度不得小于6位");
+                return false;
+            } else {
+                return true;
             }
-            return true;
         });
     })
 </script>

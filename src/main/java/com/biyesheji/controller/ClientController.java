@@ -64,7 +64,7 @@ public class ClientController {
             out = response.getWriter();
             Customer resultCustomer = customerService.foreLogin(customer);
             if (resultCustomer == null) {
-                json.addProperty("status", -1);// -1 是登录失败,用户不存在
+                json.addProperty("status", -1);// -1 是登录失败,用户不存在/密码错误
             } else {
                 json.addProperty("status", 1);// 1 是登录成功
                 json.addProperty("customer", gson.toJson(resultCustomer));

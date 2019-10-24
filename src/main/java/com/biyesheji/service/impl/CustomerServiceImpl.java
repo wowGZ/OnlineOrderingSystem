@@ -4,6 +4,7 @@ import com.biyesheji.dao.CustomerMapper;
 import com.biyesheji.pojo.Customer;
 import com.biyesheji.pojo.CustomerExample;
 import com.biyesheji.service.CustomerService;
+import com.biyesheji.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer foreLogin(Customer customer) {
         CustomerExample example = new CustomerExample();
+        customer.setPassword(MD5Util.getStringMD5(customer.getPassword()));
         example.createCriteria().andNameEqualTo(customer.getName()).andPasswordEqualTo(customer.getPassword());
         List<Customer> customers = customerMapper.selectByExample(example);
 
@@ -26,6 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void save(Customer customer) {
+        customer.setPassword(MD5Util.getStringMD5(customer.getPassword()));
         customerMapper.insert(customer);
     }
 

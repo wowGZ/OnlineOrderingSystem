@@ -17,9 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 前台所有请求controller
@@ -434,6 +432,15 @@ public class ForeController {
 
         //给每个订单的订单项设置属性值，如orderitem、product
         orderItemService.fill(os);
+
+        Collections.sort(os, new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return o2.getId().compareTo(o1.getId());
+            }
+        });
+
+
 
         model.addAttribute("os", os);
         return "forepage/foreBought";

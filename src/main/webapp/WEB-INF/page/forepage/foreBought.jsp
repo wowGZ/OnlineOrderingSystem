@@ -86,8 +86,9 @@
                                                     </div>
                                                 </td>
                                                 <td width="15%">
-                                                    <c:if test="${order.status==1}">未发货</c:if>
-                                                    <c:if test="${order.status==2}">已发货</c:if>
+                                                    <c:if test="${order.status==0}">未接单</c:if>
+                                                    <c:if test="${order.status==1}">已接单</c:if>
+                                                    <c:if test="${order.status==2}">已送出</c:if>
                                                 </td>
                                             </tr>
                                             </tbody>

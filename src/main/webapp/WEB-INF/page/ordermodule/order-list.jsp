@@ -46,16 +46,16 @@
                     <td>${order.total}</td>
                     <td>
                         <c:if test="${order.status==0}">
-                            未支付
+                            未接单
                         </c:if>
                         <c:if test="${order.status==1}">
-                            未发货
+                            已接单
                         </c:if>
                         <c:if test="${order.status==2}">
-                            已发货
+                            已送出
                         </c:if>
                         <c:if test="${order.status==3}">
-                            已收货
+                            已送达
                         </c:if>
                     </td>
                     <td>
@@ -64,6 +64,12 @@
                            class="ml-5" style="text-decoration:none">
                             <span class="label label-success radius">查看详情</span>
                         </a>
+                        <c:if test="${order.status==0}">
+                            <a title="发货" href="/order/orderReceive?id=${order.id}"
+                               class="ml-5" style="text-decoration:none">
+                                <span class="label label-success radius">接单</span>
+                            </a>
+                        </c:if>
                         <c:if test="${order.status==1}">
                             <a title="发货" href="/order/orderDelivery?id=${order.id}"
                                class="ml-5" style="text-decoration:none">

@@ -51,6 +51,18 @@ public class OrderController {
     }
 
     /**
+     * 订单接单
+     * @param o
+     * @return
+     */
+    @RequestMapping("/orderReceive")
+    public String receive(Order o){
+        o.setStatus(1);
+        orderService.update(o);
+        return "redirect:list";
+    }
+
+    /**
      * 订单发货
      * @param o
      * @return

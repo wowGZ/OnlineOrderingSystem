@@ -26,6 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
         return customers.size()>0?customers.get(0):null;
     }
 
+
+
     @Override
     public void save(Customer customer) {
         customer.setPassword(MD5Util.getStringMD5(customer.getPassword()));
@@ -36,16 +38,6 @@ public class CustomerServiceImpl implements CustomerService {
     public void update(Customer customer){
         customerMapper.updateByPrimaryKey(customer);
     }
-
-//    @Override
-//    public void updateByName(Customer customer) {
-//        customerMapper.updateByName(customer);
-//    }
-//
-//    @Override
-//    public Customer selectByName(Customer customer) {
-//        return customerMapper.selectByName(customer);
-//    }
 
     @Override
     public Customer get(int cstid) {

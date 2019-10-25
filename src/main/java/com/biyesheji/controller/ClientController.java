@@ -8,6 +8,7 @@ import com.biyesheji.service.OrderItemService;
 import com.biyesheji.service.OrderService;
 import com.biyesheji.service.ProductService;
 
+import com.biyesheji.util.MD5Util;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -117,7 +118,7 @@ public class ClientController {
             int flag = 0;
             for (Customer cst :
                     list) {
-                if (cst.getName().equals(name)){
+                if (cst.getName().equals(name)) {
 
                     System.out.println(cst.toString());
                     System.out.println("------------------------------------------------------");
@@ -132,7 +133,7 @@ public class ClientController {
                     break;
                 }
             }
-            if (flag >= 1){
+            if (flag >= 1) {
                 json.addProperty("status", 1);
             } else {
                 json.addProperty("status", -1);
@@ -163,13 +164,13 @@ public class ClientController {
 
         JsonObject json = new JsonObject();
 
-        successOrFailure(response,json);
+        successOrFailure(response, json);
     }
 
 
     @RequestMapping("/showCustomerAllOrder")
     public void showCustomerAllOrder(HttpServletResponse response,
-                                     @RequestParam("id") Integer id){
+                                     @RequestParam("id") Integer id) {
         Gson gson = new Gson();
 
         response.setContentType("application/json;charset=UTF-8");
@@ -184,6 +185,7 @@ public class ClientController {
             if (list.size() > 0) {
                 orderItemService.fill(list);
                 json.addProperty("status", 1);//成功
+                json.addProperty("phone", customer.getPhone());
                 json.addProperty("orderList", gson.toJson(list));//返回相关数据
             } else if (list.size() == 0) {
                 json.addProperty("status", -1);//为查询到相关数据
@@ -200,7 +202,7 @@ public class ClientController {
             out.close();
         }
     }
-    
+
     @RequestMapping("/showAllProduct")
     public void showAllProduct(HttpServletResponse response) {
         Gson gson = new Gson();
@@ -227,7 +229,42 @@ public class ClientController {
                             @RequestParam("id") String productId,
                             @RequestParam("number") String productNumber,
                             @RequestParam("customerId") Integer customerId,
-                            @RequestParam("address")String address){
+                            @RequestParam("address") String address,
+                            @RequestParam("phone")String phone) {
+        Gson gson = new Gson();
+        JsonObject json = new JsonObject();
+        PrintWriter out = null;
+        response.setContentType("application/json;charset=UTF-8");
+
+        //判断是否游客登录，游客登录则进行初始化帐号密码，非游客则查询数据库获取游客详情
+        Customer customer = new Customer();
+        if (customerId == -1) {
+
+            customer.setPassword(phone);
+            customer.setName(phone);
+            customer.setAddress(address);
+            customer.setStatus(0);
+            customer.setPhone(phone);
+
+            customerService.save(customer);
+
+            for (Customer c :
+                    customerService.list()) {
+                if (c.getName().equals(customer.getName()) && c.getPassword().equals(MD5Util.getStringMD5(customer.getPassword()))) {
+                    customer.setId(c.getId());
+                    break;
+                }
+            }
+
+            System.out.println(customer.getId());
+            customerId = customer.getId();
+        } else {
+            customer.setId(customerId);
+            customer = customerService.get(customerId);
+        }
+        json.addProperty("customer", gson.toJson(customer));//json传回用户信息
+
+        //进行订单的相关设置，以及设置完成之后进行订单的提交
         String[] productIds = productId.split(",");
         String[] productNumbers = productNumber.split(",");
 
@@ -242,19 +279,33 @@ public class ClientController {
         }
 
         Order order = new Order();
-        String orderCode = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);order.setCode(orderCode);
+        String orderCode = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);
         order.setCode(orderCode);
         order.setAddress(address);
         order.setCstid(customerId);
         order.setStatus(0);
-        orderService.add(order, orderItems);
+        orderService.save(order);
 
-        JsonObject json = new JsonObject();
+        List<Order> list = orderService.list();
+        for (Order o :
+                list) {
+            if (o.getCode().equals(order.getCode())) {
+                order.setId(o.getId());
+                break;
+            }
+        }
 
-        successOrFailure(response,json);
+        for (OrderItem oi :
+                orderItems) {
+            oi.setOid(order.getId());
+            orderItemService.update(oi);
+        }
+
+        //json传回成功与否
+        successOrFailure(response, json);
     }
 
-    private void successOrFailure(HttpServletResponse response,JsonObject json) {
+    private void successOrFailure(HttpServletResponse response, JsonObject json) {
         PrintWriter out = null;
         response.setContentType("application/json;charset=UTF-8");
         try {

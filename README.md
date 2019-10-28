@@ -1,6 +1,7 @@
 # OnlineOrderingSystem
 网上订餐系统，基于javaweb+SSM+maven实现
 提供Android相关接口，以及简单的安卓端app
+安卓端github地址：https://github.com/WaveRain/OnlineOrderSystemClient
 
 改数据库在jdbc.properties里面
 数据库脚本为db.sql;

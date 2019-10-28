@@ -3,6 +3,7 @@ package com.biyesheji.controller;
 import com.biyesheji.pojo.Customer;
 import com.biyesheji.pojo.Order;
 import com.biyesheji.pojo.OrderItem;
+import com.biyesheji.pojo.Product;
 import com.biyesheji.service.CustomerService;
 import com.biyesheji.service.OrderItemService;
 import com.biyesheji.service.OrderService;
@@ -274,6 +275,9 @@ public class ClientController {
             oi.setCstid(customerId);
             oi.setNumber(Integer.parseInt(productNumbers[i]));
             oi.setPid(Integer.parseInt(productIds[i]));
+            Product product = productService.get(Integer.parseInt(productIds[i]));
+            product.setNumber(product.getNumber() + Integer.parseInt(productNumbers[i]));
+            productService.update(product);
             orderItemService.save(oi);
             orderItems.add(oi);
         }

@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-md-6 col-12 mb-20">
                                 <label>密码：</label>
-                                <input class="mb-0" type="text" name="password" id="password" placeholder="Password">
+                                <input class="mb-0" type="password" name="password" id="password" placeholder="Password">
                             </div>
                             <div class="col-md-12 mb-20">
                                 <label>地址:</label>

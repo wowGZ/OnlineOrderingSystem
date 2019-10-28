@@ -10,5 +10,5 @@ name:小白
 password:adminadmin
 有了这个账号登上去后，就能看所有功能了，后台管理员的密码是加密放入数据库的，看不了
 前台客户登陆请查看customer里面的记录，我测试前台用的：
-name:gz
-password:123
+name:wowgz
+password:mknjnhnb
